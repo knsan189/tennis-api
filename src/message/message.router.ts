@@ -1,13 +1,7 @@
 import { Router } from "express";
-import MessageService from "./message.service.js";
+import MessageService, { Message } from "./message.service.js";
 
 const messageRouter = Router();
-
-interface Message {
-  room: string;
-  msg: string;
-  sender: string;
-}
 
 const messageService = new MessageService();
 
@@ -16,7 +10,7 @@ messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
     const { room, msg, sender } = req.body;
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).send({ error: error.message });
+      res.status(500).send({ data: error.message, code: 500 });
     }
   }
 });
@@ -24,28 +18,28 @@ messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
 messageRouter.get("/queue", (req, res) => {
   try {
     const message = messageService.getMessage();
-
     if (!message) {
-      res.status(204).send("No messages left in the queue");
+      res
+        .status(204)
+        .send({ data: "No messages left in the queue", code: 204 });
       return;
     }
-
-    res.status(200).send({ data: message });
+    res.status(200).send({ msg: message, code: 200 });
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).send(error.message);
+      res.status(500).send({ data: error.message, code: 500 });
     }
   }
 });
 
-messageRouter.post("/queue", (req, res) => {
+messageRouter.post<void, unknown, Message, void>("/queue", (req, res) => {
   try {
-    const { message } = req.body;
+    const message = req.body;
     messageService.addMessage(message);
-    res.status(201).send("Message added to the queue");
+    res.status(201).send({ data: "Message added to the queue", code: 201 });
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).send(error.message);
+      res.status(500).send({ data: error.message, code: 500 });
     }
   }
 });
