@@ -1,0 +1,5 @@
+import { configDotenv } from "dotenv";
+
+configDotenv();
+
+export const SERVER_PORT = process.env.SERVER_PORT || 3000;
