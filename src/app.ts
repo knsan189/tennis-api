@@ -8,6 +8,9 @@ process.title = "message-api";
 const app = express();
 const logger = Logger.getInstance();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.listen(SERVER_PORT, () => {
   logger.log(`[ ${process.title} ]`);
   logger.log("Server Port :", SERVER_PORT);
