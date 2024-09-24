@@ -13,4 +13,6 @@ app.listen(SERVER_PORT, () => {
   logger.log("Server Port :", SERVER_PORT);
 });
 
-app.use("/message", messageRouter);
+app.use("/message", messageRouter, (req) => {
+  logger.log(`[${req.method}] ${req.url}`);
+});
