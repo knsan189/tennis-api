@@ -1,4 +1,4 @@
-const MessageQueue: string[] = [];
+const MessageQueue: string[] = ["테스트"];
 
 export default class MessageService {
   getMessage() {
