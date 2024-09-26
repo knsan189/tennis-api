@@ -4,9 +4,7 @@ export interface Message {
   sender: string;
 }
 
-const MessageQueue: Message[] = [
-  { room: "진하늘", msg: "안녕하세요", sender: "김진하" },
-];
+const MessageQueue: Message[] = [];
 
 export default class MessageService {
   getMessage() {

@@ -1,4 +1,10 @@
 export default class CommandService {
+  command = "";
+
+  room = "";
+
+  sender = "";
+
   commandList: { [key: string]: () => string } = {
     명령어: () => {
       return this.getCommandList();
@@ -6,12 +12,14 @@ export default class CommandService {
   };
 
   getCommandList(): string {
-    return Object.keys(this.commandList).join(", ");
+    return Object.keys(this.commandList).join(", ") + " 명령어가 있습니다.";
   }
 
   checkCommand(room: string, msg: string, sender: string): string {
-    const command = msg.replace("/", "");
-    const commandFunc = this.commandList[command];
+    this.sender = sender;
+    this.room = room;
+    this.command = msg.replace("/", "");
+    const commandFunc = this.commandList[this.command];
 
     if (!commandFunc) {
       return "해당 명령어는 존재하지 않습니다.";
