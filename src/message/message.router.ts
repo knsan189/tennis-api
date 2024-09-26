@@ -42,7 +42,7 @@ messageRouter.get("/queue", (req, res) => {
 messageRouter.post<void, unknown, Message, void>("/queue", (req, res) => {
   try {
     const message = req.body;
-    messageService.addMessage({ ...message, room: "테스트방" });
+    messageService.addMessage({ ...message, room: "test" });
     res.status(201).send({ data: "Message added to the queue", code: 201 });
   } catch (error) {
     if (error instanceof Error) {
