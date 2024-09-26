@@ -1,8 +1,10 @@
 import { Router } from "express";
 import MessageService, { Message } from "./message.service.js";
+import CommandService from "../command/command.service.js";
 
 const messageRouter = Router();
 const messageService = new MessageService();
+const commandService = new CommandService();
 
 messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
   try {
@@ -14,8 +16,8 @@ messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
       sender,
     };
 
-    if (msg === "/공지사항") {
-      message.msg = "안녕하세요. 공지사항입니다.";
+    if (msg.startsWith("/")) {
+      message.msg = commandService.checkCommand(room, msg, sender);
     }
 
     res.send({
