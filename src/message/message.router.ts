@@ -6,13 +6,20 @@ const messageService = new MessageService();
 
 messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
   try {
-    const { room, sender } = req.body;
+    const { room, msg, sender } = req.body;
+
+    const message = {
+      room,
+      msg: "",
+      sender,
+    };
+
+    if (msg === "/공지사항") {
+      message.msg = "안녕하세요. 공지사항입니다.";
+    }
+
     res.send({
-      data: {
-        room,
-        msg: "pong",
-        sender,
-      },
+      data: message,
       code: 200,
     });
   } catch (error) {
