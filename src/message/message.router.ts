@@ -6,7 +6,15 @@ const messageService = new MessageService();
 
 messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
   try {
-    const { room, msg, sender } = req.body;
+    const { room, sender } = req.body;
+    res.send({
+      data: {
+        room,
+        msg: "pong",
+        sender,
+      },
+      code: 200,
+    });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).send({ data: error.message, code: 500 });
