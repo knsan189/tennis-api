@@ -15,12 +15,12 @@ export default class CommandService {
   messageService = new MessageService();
 
   commandList: { [key: string]: () => string } = {
-    명령어: this.getCommandList,
-    일정: this.sendAvailableSchedules,
+    명령어: () => this.getCommandList(),
+    일정: () => this.sendAvailableSchedules(),
   };
 
   getCommandList(): string {
-    return Object.keys(this.commandList).join(", ") + " 명령어가 있습니다.";
+    return Object.keys(this.commandList).join(", ") + "명령어가 있습니다.";
   }
 
   sendAvailableSchedules(): string {
