@@ -1,12 +1,15 @@
 import { Router } from "express";
-import MessageService, { Message } from "./message.service.js";
-import CommandService from "../command/command.service.js";
+import MessageService, { Message } from "./message.service";
+import CommandService from "../command/command.service";
+// import UserService from "../user/user.service.js";
+// import { UserEntity } from "../user/entities/user.entity.js";
 
 const messageRouter = Router();
 const messageService = new MessageService();
 const commandService = new CommandService();
+// const userService = new UserService();
 
-messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
+messageRouter.post<void, unknown, Message, void>("/", async (req, res) => {
   try {
     const { room, msg, sender } = req.body;
 
@@ -17,7 +20,7 @@ messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
     };
 
     if (msg.startsWith("/")) {
-      message.msg = commandService.checkCommand(room, msg, sender);
+      message.msg = await commandService.checkCommand(room, msg, sender);
     }
 
     res.send({
