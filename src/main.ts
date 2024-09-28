@@ -1,7 +1,7 @@
 import app from "./app/app";
 import Logger from "./app/logger";
 import { SERVER_PORT } from "./config/const";
-import AppDateSource from "./config/db.config";
+import AppDateSource from "./app/dataSource";
 
 const logger = Logger.getInstance();
 

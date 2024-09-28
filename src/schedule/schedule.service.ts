@@ -1,5 +1,5 @@
 import { LessThan, MoreThan } from "typeorm";
-import AppDateSource from "../config/db.config";
+import AppDateSource from "../app/dataSource";
 import { ScheduleEntity } from "./entities/schedule.entity";
 
 export default class ScheduleService {

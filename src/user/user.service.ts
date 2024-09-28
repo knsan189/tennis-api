@@ -1,4 +1,4 @@
-import AppDateSource from "../config/db.config";
+import AppDateSource from "../app/dataSource";
 import { UserEntity } from "./entities/user.entity";
 
 export default class UserService {

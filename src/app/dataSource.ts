@@ -8,8 +8,8 @@ const AppDateSource = new DataSource({
   password: "dhswja95",
   database: "tennis",
   synchronize: true,
-  logging: true,
-  entities: ["src/**/entities/*.entity.ts"],
+  logging: process.env.NODE_ENV === "development",
+  entities: ["src/**/entities/*.entity{.ts,.js}"],
 });
 
 export default AppDateSource;
