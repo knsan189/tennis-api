@@ -1,10 +1,10 @@
 import app from "./app/app";
 import Logger from "./app/logger";
-import { SERVER_PORT } from "./config/const";
+import { PROCESS_NAME, SERVER_PORT } from "./config/const";
 
 const logger = Logger.getInstance();
 
-process.title = "message-api";
+process.title = PROCESS_NAME;
 
 app.listen(SERVER_PORT, () => {
   logger.log(`[ ${process.title} ]`);

@@ -1,12 +1,17 @@
 import { DataSource } from "typeorm";
-
-const { NODE_ENV, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } =
-  process.env;
+import {
+  DB_DATABASE,
+  DB_HOST,
+  DB_PASSWORD,
+  DB_PORT,
+  DB_USERNAME,
+  NODE_ENV,
+} from "../config/const";
 
 const AppDateSource = new DataSource({
   type: "mariadb",
   host: DB_HOST,
-  port: Number(DB_PORT),
+  port: DB_PORT,
   username: DB_USERNAME,
   password: DB_PASSWORD,
   database: DB_DATABASE,
