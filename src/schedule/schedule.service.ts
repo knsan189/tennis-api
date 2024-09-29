@@ -3,7 +3,7 @@ import AppDateSource from "../app/dataSource";
 import { ScheduleEntity } from "./entities/schedule.entity";
 
 export default class ScheduleService {
-  scheduleRepository = AppDateSource.getRepository(ScheduleEntity);
+  private scheduleRepository = AppDateSource.getRepository(ScheduleEntity);
 
   addSchedule(schedule: ScheduleEntity) {
     return this.scheduleRepository.save(schedule);
@@ -29,5 +29,13 @@ export default class ScheduleService {
     return this.scheduleRepository.delete({
       startTime: LessThan(new Date()),
     });
+  }
+
+  addParticipant(scheduleId: number, userId: number) {
+    return this.scheduleRepository
+      .createQueryBuilder()
+      .relation(ScheduleEntity, "participations")
+      .of(scheduleId)
+      .add(userId);
   }
 }

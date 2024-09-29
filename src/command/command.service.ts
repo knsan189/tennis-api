@@ -2,6 +2,8 @@ import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import MessageService from "../message/message.service.js";
 import ScheduleService from "../schedule/schedule.service";
+import UserService from "../user/user.service.js";
+import { UserEntity } from "../user/entities/user.entity.js";
 
 export default class CommandService {
   private command = "";
@@ -16,13 +18,50 @@ export default class CommandService {
 
   private messageService = new MessageService();
 
+  private userSerivce = new UserService();
+
   private commandList: { [key: string]: () => string } = {
     명령어: () => this.sendCommandList(),
     일정: () => this.sendAvailableSchedules(),
+    일정참가: () => this.addParticipant(),
   };
 
   private sendCommandList(): string {
     return Object.keys(this.commandList).join(", ") + "명령어가 있습니다.";
+  }
+
+  private addParticipant(): string {
+    const scheduleId = parseInt(this.msg.split(" ")[1], 10);
+
+    if (isNaN(scheduleId)) {
+      return "일정 번호를 입력해주세요.";
+    }
+
+    this.userSerivce.getUserIsExist(this.sender).then((isExist) => {
+      if (!isExist) {
+        const user = new UserEntity();
+        user.name = this.sender;
+        this.userSerivce.addUser(user);
+      }
+      this.userSerivce.getUserByName(this.sender).then((user) => {
+        if (!user) {
+          this.messageService.addMessage({
+            room: this.room,
+            msg: "유저 정보를 찾을 수 없습니다.",
+            sender: "system",
+          });
+        } else {
+          this.scheduleService.addParticipant(scheduleId, user.id);
+          this.messageService.addMessage({
+            room: this.room,
+            msg: "일정 참가가 완료되었습니다.",
+            sender: "system",
+          });
+        }
+      });
+    });
+
+    return "";
   }
 
   private sendAvailableSchedules(): string {
@@ -47,7 +86,7 @@ export default class CommandService {
             locale: ko,
           });
           const time = format(schedule.startTime, "a h:mm", { locale: ko });
-          msg += `${date}-${schedule.courtName}-${time}\n`;
+          msg += `${schedule.id}. ${date}-${schedule.courtName}-${time}-${schedule.participations.length}명\n`;
         });
 
         this.messageService.addMessage({

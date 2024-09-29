@@ -16,7 +16,11 @@ export default class UserService {
     return this.userRepository.findOne({ where: { id: userId } });
   }
 
-  isUserExist(name: string) {
+  getUserByName(name: string) {
+    return this.userRepository.findOne({ where: { name } });
+  }
+
+  getUserIsExist(name: string) {
     return this.userRepository.exists({ where: { name } });
   }
 }
