@@ -1,15 +1,12 @@
 import app from "./app/app";
 import Logger from "./app/logger";
 import { SERVER_PORT } from "./config/const";
-import AppDateSource from "./app/dataSource";
 
 const logger = Logger.getInstance();
+
+process.title = "message-api";
 
 app.listen(SERVER_PORT, () => {
   logger.log(`[ ${process.title} ]`);
   logger.log("Server Port :", SERVER_PORT);
-});
-
-AppDateSource.initialize().then(() => {
-  logger.log("Database connected");
 });

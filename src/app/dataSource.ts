@@ -1,17 +1,20 @@
 import { DataSource } from "typeorm";
 
+const { NODE_ENV, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } =
+  process.env;
+
 const AppDateSource = new DataSource({
   type: "mariadb",
-  host: "192.168.0.83",
-  port: 3308,
-  username: "jin",
-  password: "dhswja95",
-  database: "tennis",
+  host: DB_HOST,
+  port: Number(DB_PORT),
+  username: DB_USERNAME,
+  password: DB_PASSWORD,
+  database: DB_DATABASE,
   synchronize: true,
-  logging: process.env.NODE_ENV === "development",
+  logging: NODE_ENV === "development",
   entities: [
     `${
-      process.env.NODE_ENV === "development" ? "src" : "dist"
+      NODE_ENV === "development" ? "src" : "dist"
     }/**/entities/*.entity.{ts,js}`,
   ],
 });
