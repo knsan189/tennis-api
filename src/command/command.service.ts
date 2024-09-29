@@ -4,26 +4,28 @@ import MessageService from "../message/message.service.js";
 import ScheduleService from "../schedule/schedule.service";
 
 export default class CommandService {
-  command = "";
+  private command = "";
 
-  room = "";
+  private room = "";
 
-  sender = "";
+  private sender = "";
 
-  scheduleService = new ScheduleService();
+  private msg = "";
 
-  messageService = new MessageService();
+  private scheduleService = new ScheduleService();
 
-  commandList: { [key: string]: () => string } = {
-    명령어: () => this.getCommandList(),
+  private messageService = new MessageService();
+
+  private commandList: { [key: string]: () => string } = {
+    명령어: () => this.sendCommandList(),
     일정: () => this.sendAvailableSchedules(),
   };
 
-  getCommandList(): string {
+  private sendCommandList(): string {
     return Object.keys(this.commandList).join(", ") + "명령어가 있습니다.";
   }
 
-  sendAvailableSchedules(): string {
+  private sendAvailableSchedules(): string {
     this.messageService.addMessage({
       room: this.room,
       msg: "현재 등록된 일정을 조회합니다.",
@@ -41,15 +43,16 @@ export default class CommandService {
         let msg = "등록된 일정은 다음과 같습니다.\n";
 
         schedules.forEach((schedule) => {
-          const date = format(schedule.startTime, "MMM do (E)", {
+          const date = format(schedule.startTime, "MMM do(E)", {
             locale: ko,
           });
-          msg += `${date} ${schedule.courtName}\n`;
+          const time = format(schedule.startTime, "a h:mm", { locale: ko });
+          msg += `${date}-${schedule.courtName}-${time}\n`;
         });
 
         this.messageService.addMessage({
           room: this.room,
-          msg,
+          msg: msg.trim(),
           sender: "system",
         });
       }
@@ -58,9 +61,10 @@ export default class CommandService {
     return "";
   }
 
-  checkCommand(room: string, msg: string, sender: string): string {
+  public executeCommand(room: string, msg: string, sender: string): string {
     this.sender = sender;
     this.room = room;
+    this.msg = msg;
     this.command = msg.replace("/", "");
     const commandFunc = this.commandList[this.command];
 
