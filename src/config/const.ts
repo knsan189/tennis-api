@@ -2,7 +2,7 @@ import { configDotenv } from "dotenv";
 
 configDotenv();
 
-export const SERVER_PORT = Number(process.env.SERVER_PORT) || 3000;
+export const LISTEN_PORT = Number(process.env.LISTEN_PORT) || 3000;
 export const {
   NODE_ENV,
   DB_HOST,
