@@ -1,1 +1,2 @@
-sh shutdown.sh && sh startup.sh
+sh shutdown.sh 
+sh startup.sh
