@@ -2,10 +2,26 @@ import { Router } from "express";
 import { AddScheduleDto } from "./dto/add-schedule.dto";
 import { ScheduleEntity } from "./entities/schedule.entity";
 import ScheduleService from "./schedule.service";
+import { AddParticipantDto } from "./dto/add-participant.dto";
+import { GetSchedulesDto } from "./dto/get-schdules.dto";
 
 const scheduleRouter = Router();
 const scheduleService = new ScheduleService();
 
+scheduleRouter.get<void, unknown, void, GetSchedulesDto>(
+  "/",
+  async (req, res) => {
+    try {
+      const dto = req.query;
+      const schedules = await scheduleService.getSchedules(dto);
+      res.status(200).send({ data: schedules, code: 200 });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).send({ data: error.message, code: 500 });
+      }
+    }
+  }
+);
 scheduleRouter.post<void, unknown, AddScheduleDto>("/", async (req, res) => {
   try {
     const schedule = new ScheduleEntity();
@@ -22,5 +38,20 @@ scheduleRouter.post<void, unknown, AddScheduleDto>("/", async (req, res) => {
     }
   }
 });
+
+scheduleRouter.post<void, unknown, AddParticipantDto>(
+  "/participant",
+  async (req, res) => {
+    try {
+      const { scheduleId, participantId } = req.body;
+      await scheduleService.addParticipant(scheduleId, participantId);
+      res.status(201).send({ data: "Participant added", code: 201 });
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).send({ data: error.message, code: 500 });
+      }
+    }
+  }
+);
 
 export default scheduleRouter;

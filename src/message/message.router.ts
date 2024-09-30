@@ -9,7 +9,7 @@ const messageService = new MessageService();
 const commandService = new CommandService();
 // const userService = new UserService();
 
-messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
+messageRouter.post<void, unknown, Message, void>("/", async (req, res) => {
   try {
     const { room, msg, sender } = req.body;
 
@@ -20,7 +20,7 @@ messageRouter.post<void, unknown, Message, void>("/", (req, res) => {
     };
 
     if (msg.startsWith("/")) {
-      message.msg = commandService.executeCommand(room, msg, sender);
+      message.msg = await commandService.executeCommand(room, msg, sender);
     }
 
     res.send({
