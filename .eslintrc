@@ -7,6 +7,6 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["node_modules/", "*.js"],
+  "ignorePatterns": ["node_modules/", "*.js", "*.cjs"],
   "rules": {}
 }

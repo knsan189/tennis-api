@@ -22,6 +22,7 @@ scheduleRouter.get<void, unknown, void, GetSchedulesDto>(
     }
   }
 );
+
 scheduleRouter.post<void, unknown, AddScheduleDto>("/", async (req, res) => {
   try {
     const schedule = new ScheduleEntity();

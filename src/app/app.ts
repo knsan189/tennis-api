@@ -5,7 +5,6 @@ import AppDateSource from "./dataSource";
 import scheduleRouter from "../schedule/schedule.router";
 
 const app = express();
-
 const logger = Logger.getInstance();
 
 app.use(express.json());
