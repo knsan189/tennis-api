@@ -1,7 +1,7 @@
 import { LessThan, MoreThan } from "typeorm";
-import AppDateSource from "../app/dataSource";
-import { ScheduleEntity } from "./entities/schedule.entity";
-import { GetSchedulesDto } from "./dto/get-schdules.dto";
+import AppDateSource from "../app/dataSource.js";
+import { ScheduleEntity } from "./entities/schedule.entity.js";
+import { GetSchedulesDto } from "./dto/get-schdules.dto.js";
 
 export default class ScheduleService {
   private scheduleRepository = AppDateSource.getRepository(ScheduleEntity);

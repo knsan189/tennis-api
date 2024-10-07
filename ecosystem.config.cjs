@@ -7,7 +7,7 @@ module.exports = {
     {
       name: "tennis-court-api",
       script: "dist/main.js",
-      port: process.env.LISTEN_PORT,
+      port: 10010,
     },
   ],
 };

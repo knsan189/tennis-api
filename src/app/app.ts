@@ -1,8 +1,8 @@
 import express from "express";
-import Logger from "./logger";
-import messageRouter from "../message/message.router";
-import AppDateSource from "./dataSource";
-import scheduleRouter from "../schedule/schedule.router";
+import Logger from "./logger.js";
+import messageRouter from "../message/message.router.js";
+import AppDateSource from "./dataSource.js";
+import scheduleRouter from "../schedule/schedule.router.js";
 
 const app = express();
 const logger = Logger.getInstance();

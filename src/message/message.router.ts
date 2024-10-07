@@ -1,6 +1,6 @@
 import { Router } from "express";
-import MessageService, { Message } from "./message.service";
-import CommandService from "../command/command.service";
+import MessageService, { Message } from "./message.service.js";
+import CommandService from "../command/command.service.js";
 // import UserService from "../user/user.service.js";
 // import { UserEntity } from "../user/entities/user.entity.js";
 

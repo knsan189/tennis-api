@@ -1,5 +1,5 @@
-import AppDateSource from "../app/dataSource";
-import { UserEntity } from "./entities/user.entity";
+import AppDateSource from "../app/dataSource.js";
+import { UserEntity } from "./entities/user.entity.js";
 
 export default class UserService {
   userRepository = AppDateSource.getRepository(UserEntity);

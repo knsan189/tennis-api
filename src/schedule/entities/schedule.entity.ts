@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   Timestamp,
 } from "typeorm";
-import { UserEntity } from "../../user/entities/user.entity";
+import { UserEntity } from "../../user/entities/user.entity.js";
 
 @Entity("schedule")
 export class ScheduleEntity {

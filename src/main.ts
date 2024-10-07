@@ -1,6 +1,6 @@
-import app from "./app/app";
-import Logger from "./app/logger";
-import { PROCESS_NAME, LISTEN_PORT } from "./config/const";
+import app from "./app/app.js";
+import Logger from "./app/logger.js";
+import { PROCESS_NAME, LISTEN_PORT } from "./config/const.js";
 
 const logger = Logger.getInstance();
 

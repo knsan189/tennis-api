@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import MessageService from "../message/message.service.js";
-import ScheduleService from "../schedule/schedule.service";
+import ScheduleService from "../schedule/schedule.service.js";
 import UserService from "../user/user.service.js";
 import { UserEntity } from "../user/entities/user.entity.js";
 

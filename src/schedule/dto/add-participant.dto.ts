@@ -1,5 +1,5 @@
-import { UserEntity } from "../../user/entities/user.entity";
-import { ScheduleEntity } from "../entities/schedule.entity";
+import { UserEntity } from "../../user/entities/user.entity.js";
+import { ScheduleEntity } from "../entities/schedule.entity.js";
 
 export interface AddParticipantDto {
   scheduleId: ScheduleEntity["id"];

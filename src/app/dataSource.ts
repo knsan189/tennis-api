@@ -6,7 +6,7 @@ import {
   DB_PORT,
   DB_USERNAME,
   NODE_ENV,
-} from "../config/const";
+} from "../config/const.js";
 
 const AppDateSource = new DataSource({
   type: "mariadb",

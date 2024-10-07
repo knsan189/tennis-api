@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { AddScheduleDto } from "./dto/add-schedule.dto";
-import { ScheduleEntity } from "./entities/schedule.entity";
-import ScheduleService from "./schedule.service";
-import { AddParticipantDto } from "./dto/add-participant.dto";
-import { GetSchedulesDto } from "./dto/get-schdules.dto";
+import { AddScheduleDto } from "./dto/add-schedule.dto.js";
+import { ScheduleEntity } from "./entities/schedule.entity.js";
+import ScheduleService from "./schedule.service.js";
+import { AddParticipantDto } from "./dto/add-participant.dto.js";
+import { GetSchedulesDto } from "./dto/get-schdules.dto.js";
 
 const scheduleRouter = Router();
 const scheduleService = new ScheduleService();
