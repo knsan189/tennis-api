@@ -25,9 +25,8 @@ scheduleRouter.get("/", async (req: GetScheduleListRequest, res) => {
 scheduleRouter.post("/", async (req: AddScheduleRequest, res) => {
   try {
     const schedule = new ScheduleEntity();
-    schedule.startTime = new Date();
-    schedule.startTime.setHours(schedule.startTime.getHours() + 5);
-    schedule.endTime = new Date();
+    schedule.startTime = new Date(req.body.startTime);
+    schedule.endTime = new Date(req.body.endTime);
     schedule.courtName = req.body.courtName;
     schedule.dateFixed = req.body.dateFixed;
     schedule.name = req.body.name;
