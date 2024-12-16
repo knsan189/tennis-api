@@ -1,14 +1,15 @@
 import { Request } from "express";
 
-export type GetSchedulesRequest = Request<
+export type GetScheduleListRequest = Request<
   void,
   unknown,
   unknown,
-  GetSchedulesDto
+  GetScheduleListDto
 >;
 
-export interface GetSchedulesDto {
+export interface GetScheduleListDto {
   startTime: string;
   endTime?: string;
   courtName?: string;
+  name?: string;
 }

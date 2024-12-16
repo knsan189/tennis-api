@@ -1,29 +1,28 @@
 import { Router } from "express";
-import { AddScheduleDto } from "./dto/add-schedule.dto.js";
+import { AddScheduleRequest } from "./dto/add-schedule.dto.js";
 import { ScheduleEntity } from "./entities/schedule.entity.js";
 import ScheduleService from "./schedule.service.js";
 import { AddParticipantDto } from "./dto/add-participant.dto.js";
-import { GetSchedulesDto } from "./dto/get-schdules.dto.js";
+import { EditScheduleRequest } from "./dto/edit-schedule.dto.js";
+import { GetScheduleListRequest } from "./dto/get-schdule-list.dto.js";
+import { RemoveSchduleRequest } from "./dto/remove-schedule.dto.js";
 
 const scheduleRouter = Router();
 const scheduleService = new ScheduleService();
 
-scheduleRouter.get<void, unknown, void, GetSchedulesDto>(
-  "/",
-  async (req, res) => {
-    try {
-      const dto = req.query;
-      const schedules = await scheduleService.getSchedules(dto);
-      res.status(200).send({ data: schedules, code: 200 });
-    } catch (error) {
-      if (error instanceof Error) {
-        res.status(500).send({ data: error.message, code: 500 });
-      }
+scheduleRouter.get("/", async (req: GetScheduleListRequest, res) => {
+  try {
+    const dto = req.query;
+    const schedules = await scheduleService.getSchedules(dto);
+    res.status(200).send({ data: schedules, code: 200 });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).send({ data: error.message, code: 500 });
     }
   }
-);
+});
 
-scheduleRouter.post<void, unknown, AddScheduleDto>("/", async (req, res) => {
+scheduleRouter.post("/", async (req: AddScheduleRequest, res) => {
   try {
     const schedule = new ScheduleEntity();
     schedule.startTime = new Date();
@@ -33,6 +32,31 @@ scheduleRouter.post<void, unknown, AddScheduleDto>("/", async (req, res) => {
     schedule.dateFixed = req.body.dateFixed;
     await scheduleService.addSchedule(schedule);
     res.status(201).send({ data: "Schedule added", code: 201 });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).send({ data: error.message, code: 500 });
+    }
+  }
+});
+
+scheduleRouter.put("/:id", async (req: EditScheduleRequest, res) => {
+  try {
+    const scheduleId = Number(req.params);
+    const schedule = req.body;
+    await scheduleService.editSchedule(scheduleId, schedule);
+    res.status(200).send({ data: "Schedule edited", code: 200 });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).send({ data: error.message, code: 500 });
+    }
+  }
+});
+
+scheduleRouter.delete("/:id", async (req: RemoveSchduleRequest, res) => {
+  try {
+    const scheduleId = Number(req.params);
+    await scheduleService.deleteSchedule(scheduleId);
+    res.status(200).send({ data: "Schedule deleted", code: 200 });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).send({ data: error.message, code: 500 });

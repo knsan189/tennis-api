@@ -13,6 +13,9 @@ export class ScheduleEntity {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
+  @Column({ type: "varchar", length: 255 })
+  name: string;
+
   @Column({ type: "datetime" })
   startTime: Date;
 

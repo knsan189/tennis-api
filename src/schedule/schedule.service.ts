@@ -1,12 +1,12 @@
 import { LessThan, MoreThan } from "typeorm";
 import AppDateSource from "../app/dataSource.js";
 import { ScheduleEntity } from "./entities/schedule.entity.js";
-import { GetSchedulesDto } from "./dto/get-schdules.dto.js";
+import { GetScheduleListDto } from "./dto/get-schdule-list.dto.js";
 
 export default class ScheduleService {
   private scheduleRepository = AppDateSource.getRepository(ScheduleEntity);
 
-  getSchedules({ endTime, startTime, courtName }: GetSchedulesDto) {
+  getSchedules({ endTime, startTime, courtName }: GetScheduleListDto) {
     return this.scheduleRepository.find({
       where: {
         startTime: MoreThan(new Date(startTime)),
@@ -18,6 +18,10 @@ export default class ScheduleService {
 
   addSchedule(schedule: ScheduleEntity) {
     return this.scheduleRepository.save(schedule);
+  }
+
+  editSchedule(scheduleId: number, schedule: ScheduleEntity) {
+    return this.scheduleRepository.update(scheduleId, schedule);
   }
 
   deleteSchedule(scheduleId: number) {

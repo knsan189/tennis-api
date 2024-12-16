@@ -7,6 +7,10 @@ export interface Message {
 const MessageQueue: Message[] = [];
 
 export default class MessageService {
+  public static getInstance() {
+    return new MessageService();
+  }
+
   getMessage() {
     return MessageQueue.shift();
   }
