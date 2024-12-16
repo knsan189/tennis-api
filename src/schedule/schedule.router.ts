@@ -31,6 +31,7 @@ scheduleRouter.post("/", async (req: AddScheduleRequest, res) => {
     schedule.courtName = req.body.courtName;
     schedule.dateFixed = req.body.dateFixed;
     schedule.name = req.body.name;
+    schedule.participations = [];
     await scheduleService.addSchedule(schedule);
     res.status(201).send({ data: "Schedule added", code: 201 });
   } catch (error) {

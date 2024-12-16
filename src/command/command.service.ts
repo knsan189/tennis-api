@@ -117,7 +117,9 @@ export default class CommandService {
             locale: ko,
           });
           const time = format(schedule.startTime, "a h:mm", { locale: ko });
-          msg += `${schedule.id}. ${date}-${schedule.courtName}-${time}-${schedule.participations.length}명\n`;
+          msg += `${schedule.id}. ${date}-${schedule.courtName}-${time}-${
+            schedule.participations?.length || 0
+          }명\n`;
         });
 
         this.messageService.addMessage({
