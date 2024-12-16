@@ -95,42 +95,37 @@ export default class CommandService {
     return "";
   }
 
-  private sendAvailableSchedules(): string {
+  private async sendAvailableSchedules() {
     this.messageService.addMessage({
       room: this.room,
       msg: "현재 등록된 일정을 조회합니다.",
       sender: "system",
     });
 
-    this.scheduleService.getAvailableSchedules().then((schedules) => {
-      if (schedules.length === 0) {
-        this.messageService.addMessage({
-          room: this.room,
-          msg: "현재 등록된 일정이 없습니다.",
-          sender: "system",
-        });
-      } else {
-        let msg = "등록된 일정은 다음과 같습니다.\n";
+    const schedules = await this.scheduleService.getAvailableSchedules();
 
-        schedules.forEach((schedule) => {
-          const date = format(schedule.startTime, "MMM do(E)", {
-            locale: ko,
-          });
-          const time = format(schedule.startTime, "a h:mm", { locale: ko });
-          msg += `${schedule.id}. ${date}-${schedule.courtName}-${time}-${
-            schedule.participations?.length || 0
-          }명\n`;
-        });
+    if (schedules.length === 0) {
+      return "현재 등록된 일정이 없습니다.";
+    }
+    let msg = "등록된 일정은 다음과 같습니다.\n";
 
-        this.messageService.addMessage({
-          room: this.room,
-          msg: msg.trim(),
-          sender: "system",
-        });
-      }
+    schedules.forEach((schedule) => {
+      const date = format(schedule.startTime, "MMM do(E)", {
+        locale: ko,
+      });
+      const time = format(schedule.startTime, "a h:mm", { locale: ko });
+      msg += `${schedule.id}. ${date}-${schedule.courtName}-${time}-${
+        schedule.participations?.length || 0
+      }명\n`;
     });
 
-    return "";
+    this.messageService.addMessage({
+      room: this.room,
+      msg: msg.trim(),
+      sender: "system",
+    });
+
+    return msg.trim();
   }
 
   private sendNotice(): string {
