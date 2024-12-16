@@ -105,8 +105,9 @@ export default class CommandService {
     const schedules = await this.scheduleService.getAvailableSchedules();
 
     if (schedules.length === 0) {
-      return "현재 등록된 일정이 없어요 🥲. 모임장 보고 일하라고 잔소리 해주세요";
+      return "저런 안타깝게도 현재 등록된 일정이 없네요 🥲. 모임장 보고 일하라고 채찍질을 해보시는건 어떠신가요? 😡";
     }
+
     let msg = "등록된 일정이 있네요 🎉.\n";
 
     schedules.forEach((schedule) => {
@@ -115,11 +116,11 @@ export default class CommandService {
       });
       const startTime = format(schedule.startTime, "a h:mm", { locale: ko });
       const endTime = format(schedule.endTime, "a h:mm", { locale: ko });
-      msg += `${date}-${schedule.courtName}-${startTime}~${endTime}\n`;
+      msg += `${date}-${schedule.courtName}\n`;
+      msg += `${startTime} 부터 ${endTime}\n`;
     });
 
     msg += "많은 참여 부탁드려요!";
-
     return msg.trim();
   }
 
