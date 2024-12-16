@@ -34,13 +34,13 @@ export default class CommandService {
     일정: {
       description: "현재 등록된 일정을 보여줍니다. ex) /일정",
       execute: () => this.sendAvailableSchedules(),
-      alias: ["schedule", "schedules", "/일정목록", "/일정조회"],
+      alias: ["schedule", "schedules", "일정목록", "일정조회", "코트"],
     },
-    일정참가: {
-      description: "일정에 참가합니다. ex) /일정참가 [일정 번호]",
-      execute: () => this.addParticipant(),
-      alias: ["참가", "참여", "참석"],
-    },
+    // 일정참가: {
+    //   description: "일정에 참가합니다. ex) /일정참가 [일정 번호]",
+    //   execute: () => this.addParticipant(),
+    //   alias: ["참가", "참여", "참석"],
+    // },
     공지사항: {
       description: "공지사항을 확인합니다. ex) /일정",
       execute: () => this.sendNotice(),
@@ -109,12 +109,12 @@ export default class CommandService {
     }
     let msg = "등록된 일정은 다음과 같습니다.\n";
 
-    schedules.forEach((schedule) => {
+    schedules.forEach((schedule, index) => {
       const date = format(schedule.startTime, "MMM do(E)", {
         locale: ko,
       });
       const time = format(schedule.startTime, "a h:mm", { locale: ko });
-      msg += `${schedule.id}. ${date}-${schedule.courtName}-${time}-${
+      msg += `${index}. ${date}-${schedule.courtName}-${time}-${
         schedule.participations?.length || 0
       }명\n`;
     });
