@@ -14,10 +14,10 @@ scheduleRouter.get("/", async (req: GetScheduleListRequest, res) => {
   try {
     const dto = req.query;
     const schedules = await scheduleService.getSchedules(dto);
-    res.status(200).send({ data: schedules, code: 200 });
+    return res.status(200).send({ data: schedules, code: 200 });
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).send({ data: error.message, code: 500 });
+      return res.status(500).send({ data: error.message, code: 500 });
     }
   }
 });
