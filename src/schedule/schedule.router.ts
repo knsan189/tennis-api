@@ -42,7 +42,13 @@ scheduleRouter.post("/", async (req: AddScheduleRequest, res) => {
 
 scheduleRouter.put("/:id", async (req: EditScheduleRequest, res) => {
   try {
-    const scheduleId = Number(req.params);
+    const scheduleId = Number(req.params.id);
+
+    if (isNaN(scheduleId)) {
+      res.status(400).send({ data: "Invalid schedule id", code: 400 });
+      return;
+    }
+
     const schedule = req.body;
     await scheduleService.editSchedule(scheduleId, schedule);
     res.status(200).send({ data: "Schedule edited", code: 200 });
