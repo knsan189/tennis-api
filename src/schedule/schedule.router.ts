@@ -30,6 +30,7 @@ scheduleRouter.post("/", async (req: AddScheduleRequest, res) => {
     schedule.endTime = new Date();
     schedule.courtName = req.body.courtName;
     schedule.dateFixed = req.body.dateFixed;
+    schedule.name = req.body.name;
     await scheduleService.addSchedule(schedule);
     res.status(201).send({ data: "Schedule added", code: 201 });
   } catch (error) {
