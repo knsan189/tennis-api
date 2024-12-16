@@ -116,8 +116,9 @@ export default class CommandService {
       });
       const startTime = format(schedule.startTime, "a h:mm", { locale: ko });
       const endTime = format(schedule.endTime, "a h:mm", { locale: ko });
-      msg += `-${i + 1} ${date}(${schedule.courtName})\n`;
+      msg += `${i + 1}. ${date}-${schedule.courtName}\n`;
       msg += `${startTime} ~ ${endTime}\n`;
+      msg += "\n";
     });
 
     msg += "많은 참여 부탁드려요!";
