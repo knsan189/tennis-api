@@ -108,7 +108,8 @@ export default class CommandService {
       return "저런 안타깝게도 현재 등록된 일정이 없네요 🥲. 모임장 보고 일하라고 채찍질을 해보시는건 어떠신가요? 😡";
     }
 
-    let msg = "등록된 일정이 있네요 🎉.\n";
+    let msg = "등록된 일정이 있네요 🎉\n";
+    msg += "\n";
 
     schedules.forEach((schedule, i) => {
       const date = format(schedule.startTime, "MMM do(E)", {
@@ -121,7 +122,9 @@ export default class CommandService {
       msg += "\n";
     });
 
-    msg += "많은 참여 부탁드려요!";
+    msg +=
+      "많은 참석 부탁드려요! 참석 신청은 카카오톡 일정에서 참석 버튼을 눌러주세요!";
+
     return msg.trim();
   }
 
