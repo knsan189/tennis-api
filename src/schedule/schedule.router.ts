@@ -56,6 +56,10 @@ scheduleRouter.put("/:id", async (req: EditScheduleRequest, res) => {
 scheduleRouter.delete("/:id", async (req: RemoveSchduleRequest, res) => {
   try {
     const scheduleId = Number(req.params);
+    if (isNaN(scheduleId)) {
+      res.status(400).send({ data: "Invalid schedule id", code: 400 });
+      return;
+    }
     await scheduleService.deleteSchedule(scheduleId);
     res.status(200).send({ data: "Schedule deleted", code: 200 });
   } catch (error) {
