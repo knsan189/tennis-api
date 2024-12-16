@@ -105,25 +105,20 @@ export default class CommandService {
     const schedules = await this.scheduleService.getAvailableSchedules();
 
     if (schedules.length === 0) {
-      return "현재 등록된 일정이 없습니다.";
+      return "현재 등록된 일정이 없어요 🥲. 모임장 보고 일하라고 잔소리 해주세요";
     }
-    let msg = "등록된 일정은 다음과 같습니다.\n";
+    let msg = "등록된 일정이 있네요 🎉.\n";
 
-    schedules.forEach((schedule, index) => {
+    schedules.forEach((schedule) => {
       const date = format(schedule.startTime, "MMM do(E)", {
         locale: ko,
       });
-      const time = format(schedule.startTime, "a h:mm", { locale: ko });
-      msg += `${index}. ${date}-${schedule.courtName}-${time}-${
-        schedule.participations?.length || 0
-      }명\n`;
+      const startTime = format(schedule.startTime, "a h:mm", { locale: ko });
+      const endTime = format(schedule.endTime, "a h:mm", { locale: ko });
+      msg += `${date}-${schedule.courtName}-${startTime}~${endTime}\n`;
     });
 
-    this.messageService.addMessage({
-      room: this.room,
-      msg: msg.trim(),
-      sender: "system",
-    });
+    msg += "많은 참여 부탁드려요!";
 
     return msg.trim();
   }
