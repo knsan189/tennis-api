@@ -110,14 +110,14 @@ export default class CommandService {
 
     let msg = "등록된 일정이 있네요 🎉.\n";
 
-    schedules.forEach((schedule) => {
+    schedules.forEach((schedule, i) => {
       const date = format(schedule.startTime, "MMM do(E)", {
         locale: ko,
       });
       const startTime = format(schedule.startTime, "a h:mm", { locale: ko });
       const endTime = format(schedule.endTime, "a h:mm", { locale: ko });
-      msg += `${date}-${schedule.courtName}\n`;
-      msg += `${startTime} 부터 ${endTime}\n`;
+      msg += `-${i + 1} ${date}(${schedule.courtName})\n`;
+      msg += `${startTime} ~ ${endTime}\n`;
     });
 
     msg += "많은 참여 부탁드려요!";
