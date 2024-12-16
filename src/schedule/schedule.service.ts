@@ -6,12 +6,13 @@ import { GetScheduleListDto } from "./dto/get-schdule-list.dto.js";
 export default class ScheduleService {
   private scheduleRepository = AppDateSource.getRepository(ScheduleEntity);
 
-  getSchedules({ endTime, startTime, courtName }: GetScheduleListDto) {
+  getSchedules({ endTime, startTime, courtName, name }: GetScheduleListDto) {
     return this.scheduleRepository.find({
       where: {
         startTime: MoreThan(new Date(startTime)),
         endTime: endTime ? LessThan(new Date(endTime)) : undefined,
-        courtName,
+        courtName: courtName ? courtName : undefined,
+        name: name ? name : undefined,
       },
     });
   }
