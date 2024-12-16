@@ -41,10 +41,10 @@ export default class CommandService {
     //   execute: () => this.addParticipant(),
     //   alias: ["참가", "참여", "참석"],
     // },
-    공지사항: {
+    공지: {
       description: "공지사항을 확인합니다. ex) /일정",
       execute: () => this.sendNotice(),
-      alias: ["공지", "질문", "문의"],
+      alias: ["질문", "문의", "공지사항"],
     },
   };
 
@@ -52,7 +52,8 @@ export default class CommandService {
     return (
       Object.keys(this.commandList)
         .map((string) => "/" + string)
-        .join(", ") + "명령어가 있습니다."
+        .join(", ") +
+      " 가 현재 등록되어 있어요. 😎 아직 많이 부족하지만 똑똑해지기 위해 더 노력할게요!!"
     );
   }
 
