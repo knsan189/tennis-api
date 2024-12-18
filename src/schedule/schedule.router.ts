@@ -17,6 +17,7 @@ scheduleRouter.get("/", async (req: GetScheduleListRequest, res) => {
     return res.status(200).send({ data: schedules, code: 200 });
   } catch (error) {
     if (error instanceof Error) {
+      console.log(error.message);
       return res.status(500).send({ data: error.message, code: 500 });
     }
   }
@@ -55,6 +56,7 @@ scheduleRouter.put("/:id", async (req: EditScheduleRequest, res) => {
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).send({ data: error.message, code: 500 });
+      console.log(error.message);
     }
   }
 });
@@ -70,6 +72,7 @@ scheduleRouter.delete("/:id", async (req: RemoveSchduleRequest, res) => {
     res.status(200).send({ data: "Schedule deleted", code: 200 });
   } catch (error) {
     if (error instanceof Error) {
+      console.log(error.message);
       res.status(500).send({ data: error.message, code: 500 });
     }
   }
@@ -84,6 +87,7 @@ scheduleRouter.post<void, unknown, AddParticipantDto>(
       res.status(201).send({ data: "Participant added", code: 201 });
     } catch (error) {
       if (error instanceof Error) {
+        console.log(error.message);
         res.status(500).send({ data: error.message, code: 500 });
       }
     }
