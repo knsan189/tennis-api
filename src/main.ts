@@ -5,6 +5,5 @@ import { LISTEN_PORT } from "./config/const.js";
 const logger = Logger.getInstance();
 
 app.listen(LISTEN_PORT, () => {
-  logger.log(`[ ${process.title} ]`);
   logger.log("Server Port :", LISTEN_PORT);
 });

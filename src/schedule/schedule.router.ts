@@ -25,6 +25,16 @@ scheduleRouter.get("/", async (req: GetScheduleListRequest, res) => {
 
 scheduleRouter.post("/", async (req: AddScheduleRequest, res) => {
   try {
+    const isExist = await scheduleService.isScheduleExist(
+      new Date(req.body.startTime),
+      new Date(req.body.endTime)
+    );
+
+    if (isExist) {
+      res.status(400).send({ data: "Schedule already exists", code: 400 });
+      return;
+    }
+
     const schedule = new ScheduleEntity();
     schedule.startTime = new Date(req.body.startTime);
     schedule.endTime = new Date(req.body.endTime);

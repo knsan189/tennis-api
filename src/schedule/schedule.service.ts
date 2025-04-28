@@ -47,6 +47,13 @@ export default class ScheduleService {
     });
   }
 
+  async isScheduleExist(startTime: Date, endTime: Date) {
+    const schedule = await this.scheduleRepository.findOne({
+      where: { startTime, endTime },
+    });
+    return Boolean(schedule);
+  }
+
   async isScheduleAvailable(scheduleId: number) {
     const schedule = await this.scheduleRepository.findOne({
       where: { id: scheduleId, startTime: MoreThan(new Date()) },
